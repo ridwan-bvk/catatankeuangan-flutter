@@ -1,3 +1,4 @@
+import 'package:catatankeuangan/page/category_page.dart';
 import 'package:catatankeuangan/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -12,6 +13,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final List<Widget> _children = [HomePage(), CategoryPage()];
+  int CurentIndex = 0;
+  void onTapTaped(int index) {
+    setState(() {
+      CurentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +32,7 @@ class _MainPageState extends State<MainPage> {
         firstDate: DateTime.now().subtract(Duration(days: 140)),
         lastDate: DateTime.now(),
       ),
-      body: HomePage(),
+      body: _children[CurentIndex],
       floatingActionButton: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Colors.red,
@@ -34,11 +43,19 @@ class _MainPageState extends State<MainPage> {
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+          IconButton(
+              onPressed: () {
+                onTapTaped(0);
+              },
+              icon: Icon(Icons.home)),
           SizedBox(
             width: 20,
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.list))
+          IconButton(
+              onPressed: () {
+                onTapTaped(1);
+              },
+              icon: Icon(Icons.list))
         ],
       )),
     );
