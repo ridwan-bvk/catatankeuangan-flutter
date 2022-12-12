@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -17,11 +18,29 @@ class _CategoryPageState extends State<CategoryPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Center(
-                child: Column(
-              children: [Text("data")],
-              //sampai sini
-            )),
+            content: SingleChildScrollView(
+              child: Center(
+                  child: Column(
+                children: [
+                  Text((isExpense) ? "Income" : "OutCome",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 18,
+                          color: (isExpense) ? Colors.green : Colors.red)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), hintText: "Name"),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(onPressed: () {}, child: Text('Save'))
+                ],
+                //sampai sini
+              )),
+            ),
           );
         });
   }
@@ -53,7 +72,11 @@ class _CategoryPageState extends State<CategoryPage> {
                     )
                   ],
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.add))
+                IconButton(
+                    onPressed: () {
+                      OpenDialog();
+                    },
+                    icon: Icon(Icons.add))
               ],
             ),
           ),

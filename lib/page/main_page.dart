@@ -1,5 +1,6 @@
 import 'package:catatankeuangan/page/category_page.dart';
 import 'package:catatankeuangan/page/home_page.dart';
+import 'package:catatankeuangan/page/transaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -48,7 +49,14 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: Visibility(
         visible: (CurentIndex == 0) ? true : false,
         child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => TransactionPage())
+                  // .then((value){
+                  //   setState(() {});
+                  // });
+                  );
+            },
             backgroundColor: Colors.red,
             child: Icon(Icons.add)),
       ),
