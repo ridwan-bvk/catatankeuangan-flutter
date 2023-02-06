@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:catatankeuangan/database/category.dart';
+import 'package:catatankeuangan/database/database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -13,6 +12,21 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   bool isExpense = false;
+  //variabel db 1
+  final AppDb database = AppDb();
+
+  //db 3
+  TextEditingController categoryNameController = TextEditingController();
+
+  //db 2
+  Future insert(String name, int type) async {
+    DateTime now = DateTime.now();
+    final row = await database.into(database.categories).insertReturning(
+        CategoriesCompanion.insert(
+            name: name, type: type, creatAt: now, updateAt: now));
+    print('data insert' + row.toString());
+  }
+
   void OpenDialog() {
     showDialog(
         context: context,
@@ -21,6 +35,7 @@ class _CategoryPageState extends State<CategoryPage> {
             content: SingleChildScrollView(
               child: Center(
                   child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text((isExpense) ? "Income" : "OutCome",
                       style: GoogleFonts.montserrat(
@@ -36,7 +51,15 @@ class _CategoryPageState extends State<CategoryPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Save'))
+                  ElevatedButton(
+                    onPressed: () {
+                      insert(categoryNameController.text, isExpense ? 1 : 2);
+                      setState(() {}); //agar data refresh
+
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                    child: Text('Save'),
+                  )
                 ],
                 //sampai sini
               )),
@@ -69,7 +92,9 @@ class _CategoryPageState extends State<CategoryPage> {
                           isExpense = value;
                         });
                       },
-                    )
+                    ),
+                    Text((isExpense) ? 'Pengeluaran' : 'Pemasukan',
+                        style: GoogleFonts.montserrat()),
                   ],
                 ),
                 IconButton(
@@ -80,6 +105,8 @@ class _CategoryPageState extends State<CategoryPage> {
               ],
             ),
           ),
+          // FutureBuilder(context: builder)
+          /* //UI akan diganti ke future database
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Card(
@@ -96,7 +123,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 ]),
               ),
             ),
-          ),
+          ), */
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Card(

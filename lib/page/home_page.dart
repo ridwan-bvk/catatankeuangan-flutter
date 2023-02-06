@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
           ),
           //text Transaction
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text('Transaction',
                 style: GoogleFonts.montserrat(
                     fontSize: 16, fontWeight: FontWeight.bold)),
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
 
           //list transaksi
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Card(
               elevation: 10, //buat bayangan card
               child: ListTile(
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Card(
               elevation: 10, //buat bayangan card
               child: ListTile(
